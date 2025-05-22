@@ -151,7 +151,7 @@ st.dataframe(df_display, use_container_width=True)
 # Generate
 st.markdown("---")
 st.subheader("🔀 Generate Random Combinations")
-num_creatives = st.slider("Number of combinations", 1, 20, 3)
+num_creatives = st.slider("Number of combinations", 1, 100, 3)
 
 generated_ideas = []
 if st.button("Generate"):
