@@ -40,6 +40,7 @@ if st.button("✨ Enable PRO Mode", key="pro_button"):
 if st.session_state.pro_mode:
     st.success("✅ PRO Mode Enabled! Advanced tools unlocked.")
 
+# Sample CSV download
 sample_csv = """HOOK,CHARACTER,PRODUCT DEMO
 wait, so you're telling me i can understand my mind with just one app?,First-person POV selfie of young woman in oversized hoodie,A user opens the app and taps through a few questions
 this is your sign to stop ignoring your feelings,First-person POV selfie of young man at a desk,A user types “Feeling stressed” into the app
@@ -48,6 +49,7 @@ this is your sign to stop ignoring your feelings,First-person POV selfie of youn
 with st.expander("📎 Click to download a sample CSV"):
     st.download_button("Download Sample CSV", sample_csv, file_name="sample_creative_template.csv")
 
+# File upload
 uploaded_file = st.file_uploader("Upload your CSV file with Hooks, Characters, and Demos", type=["csv"])
 
 if uploaded_file:
@@ -71,6 +73,7 @@ if uploaded_file:
 
     df_filtered["Gender"] = df_filtered["Character"].apply(extract_gender)
 
+    # Sidebar filters
     st.sidebar.header("Filters")
     gender_filter = st.sidebar.multiselect("Select Gender(s)", options=df_filtered["Gender"].unique(), default=df_filtered["Gender"].unique())
     keyword = st.sidebar.text_input("Keyword search (any field)")
@@ -79,9 +82,11 @@ if uploaded_file:
     if keyword:
         df_display = df_display[df_display.apply(lambda row: keyword.lower() in row.to_string().lower(), axis=1)]
 
+    # Show filtered data
     st.subheader("Filtered Components")
     st.dataframe(df_display, use_container_width=True)
 
+    # Generation block
     st.markdown("---")
     st.subheader("🔀 Generate Random Combinations")
     num_creatives = st.slider("Number of combinations", 1, 20, 3)
@@ -102,13 +107,14 @@ if uploaded_file:
             generated_ideas.append(idea)
 
             st.markdown(f"""
-            **🎬 Creative Idea:**
-            - **Hook:** {hook}  
-            - **Character:** {character}  
-            - **Demo:** {demo}  
-            ---
-            ")
+**🎬 Creative Idea:**  
+- **Hook:** {hook}  
+- **Character:** {character}  
+- **Demo:** {demo}  
+---
+""")
 
+    # Export
     if generated_ideas:
         export_df = pd.DataFrame(generated_ideas)
         csv_data = export_df.to_csv(index=False).encode("utf-8")
