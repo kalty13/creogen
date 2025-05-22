@@ -113,7 +113,12 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.info("✅ Loaded your uploaded file")
 else:
-    df = pd.read_csv(default_path.open("r"))
+    try:
+        df = pd.read_csv(default_path)
+        st.warning("⚠️ No file uploaded. Using default_creatives.csv")
+    except FileNotFoundError:
+        st.error("🚫 Default sample file not found. Please upload your own CSV.")
+        st.stop()
     st.warning("⚠️ No file uploaded. Using default_creatives.csv")
 
 columns = df.columns.tolist()
