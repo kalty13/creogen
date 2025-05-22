@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import random
 import io
-import os
+from pathlib import Path
 
 st.set_page_config(page_title="Creative Mixer", layout="wide")
 st.title("🎬 Creative Content Mixer")
@@ -98,7 +98,7 @@ if st.session_state['pro_mode_on']:
 
 # Sample CSV download
 with st.expander("📎 Click to download a sample CSV"):
-    default_path = os.path.join(os.path.dirname(__file__), "default_creatives.csv")
+    default_path = Path(__file__).parent / "default_creatives.csv"
 try:
     with open(default_path, "r") as f:
                 st.download_button("Download Sample CSV", f.read(), file_name="sample_creative_template.csv")
@@ -113,7 +113,7 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.info("✅ Loaded your uploaded file")
 else:
-    df = pd.read_csv(default_path)
+    df = pd.read_csv(default_path.open("r"))
     st.warning("⚠️ No file uploaded. Using default_creatives.csv")
 
 columns = df.columns.tolist()
