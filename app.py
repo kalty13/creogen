@@ -99,8 +99,11 @@ if st.session_state['pro_mode_on']:
 # Sample CSV download
 with st.expander("📎 Click to download a sample CSV"):
     default_path = os.path.join(os.path.dirname(__file__), "default_creatives.csv")
-with open(default_path, "r") as f:
-        st.download_button("Download Sample CSV", f.read(), file_name="sample_creative_template.csv")
+try:
+    with open(default_path, "r") as f:
+                st.download_button("Download Sample CSV", f.read(), file_name="sample_creative_template.csv")
+except FileNotFoundError:
+    st.error("🚫 Default sample file not found. Please upload your own CSV.")
 
 # File uploader
 uploaded_file = st.file_uploader("Upload your CSV file with Hooks, Characters, and Demos", type=["csv"])
