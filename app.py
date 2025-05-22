@@ -60,7 +60,7 @@ if 'pro_mode_on' not in st.session_state:
 
 with st.container():
     st.markdown('<div class="big-toggle">', unsafe_allow_html=True)
-    pro_mode = st.toggle("Pro Mode", value=st.session_state['pro_mode_on'], key="pro_toggle")
+    pro_mode = st.toggle("✨Pro Mode", value=st.session_state['pro_mode_on'], key="pro_toggle")
     st.markdown('</div>', unsafe_allow_html=True)
 st.session_state['pro_mode_on'] = pro_mode
 
@@ -98,7 +98,8 @@ if st.session_state['pro_mode_on']:
 
 # Sample CSV download
 with st.expander("📎 Click to download a sample CSV"):
-    with open("default_creatives.csv", "r") as f:
+    default_path = os.path.join(os.path.dirname(__file__), "default_creatives.csv")
+with open(default_path, "r") as f:
         st.download_button("Download Sample CSV", f.read(), file_name="sample_creative_template.csv")
 
 # File uploader
@@ -109,7 +110,7 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.info("✅ Loaded your uploaded file")
 else:
-    df = pd.read_csv("default_creatives.csv")
+    df = pd.read_csv(default_path)
     st.warning("⚠️ No file uploaded. Using default_creatives.csv")
 
 columns = df.columns.tolist()
