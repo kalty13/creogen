@@ -97,12 +97,13 @@ if st.session_state['pro_mode_on']:
 
 # ===== DEFAULT SAMPLE CSV DATA =====
 SAMPLE_CSV = """HOOK,CHARACTER,PRODUCT DEMO
-wait, so you're telling me i can understand my mind with just one app?,First-person POV selfie of young woman in oversized hoodie,A user opens the app and taps through a few questions
-this is your sign to stop ignoring your feelings,First-person POV selfie of young man at a desk,A user types “Feeling stressed” into the app
-why everyone's obsessed with tracking their mental health?,First-person POV selfie of young woman with fairy lights,A user scrolls through the list of tests, takes one and gets a playful result
-i was shook when i found out 70+ tests can actually help,First-person POV selfie of young man in outdoor jacket,The user finishes a short psychological test. Cut to excited face!
-this app makes self-reflection actually fun,First-person POV selfie of young woman with wavy hair,The camera pans over the app’s weekly mood chart and fun icons
+wait, so you're telling me i can understand my mind with just one app?,First-person POV selfie of young woman in oversized hoodie,"A user opens the app and taps through a few questions"
+this is your sign to stop ignoring your feelings,First-person POV selfie of young man at a desk,"A user types “Feeling stressed” into the app"
+why everyone's obsessed with tracking their mental health?,First-person POV selfie of young woman with fairy lights,"A user scrolls through the list of tests, takes one and gets a playful result"
+i was shook when i found out 70+ tests can actually help,First-person POV selfie of young man in outdoor jacket,"The user finishes a short psychological test. Cut to excited face!"
+this app makes self-reflection actually fun,First-person POV selfie of young woman with wavy hair,"The camera pans over the app’s weekly mood chart and fun icons"
 """
+
 
 with st.expander("📎 Click to download a sample CSV"):
     st.download_button("Download Sample CSV", SAMPLE_CSV, file_name="sample_creative_template.csv")
