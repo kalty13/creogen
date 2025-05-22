@@ -59,7 +59,7 @@ if 'pro_mode_on' not in st.session_state:
 
 with st.container():
     st.markdown('<div class="big-toggle">', unsafe_allow_html=True)
-    pro_mode = st.toggle("Pro Mode", value=st.session_state['pro_mode_on'], key="pro_toggle")
+    pro_mode = st.toggle("✨Pro Mode", value=st.session_state['pro_mode_on'], key="pro_toggle")
     st.markdown('</div>', unsafe_allow_html=True)
 st.session_state['pro_mode_on'] = pro_mode
 
