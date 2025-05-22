@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import random
 import io
-from pathlib import Path
 
 st.set_page_config(page_title="Creative Mixer", layout="wide")
 st.title("🎬 Creative Content Mixer")
@@ -96,30 +95,27 @@ if st.session_state['pro_mode_on']:
         if st.button("Закрыть окно Pro Mode", key="close_pro_btn"):
             st.session_state['pro_mode_on'] = False
 
-# Sample CSV download
-with st.expander("📎 Click to download a sample CSV"):
-    default_path = Path(__file__).parent / "default_creatives.csv"
-try:
-    with open(default_path, "r") as f:
-                st.download_button("Download Sample CSV", f.read(), file_name="sample_creative_template.csv")
-except FileNotFoundError:
-    st.error("🚫 Default sample file not found. Please upload your own CSV.")
+# ===== DEFAULT SAMPLE CSV DATA =====
+SAMPLE_CSV = """HOOK,CHARACTER,PRODUCT DEMO
+wait, so you're telling me i can understand my mind with just one app?,First-person POV selfie of young woman in oversized hoodie,A user opens the app and taps through a few questions
+this is your sign to stop ignoring your feelings,First-person POV selfie of young man at a desk,A user types “Feeling stressed” into the app
+why everyone's obsessed with tracking their mental health?,First-person POV selfie of young woman with fairy lights,A user scrolls through the list of tests, takes one and gets a playful result
+i was shook when i found out 70+ tests can actually help,First-person POV selfie of young man in outdoor jacket,The user finishes a short psychological test. Cut to excited face!
+this app makes self-reflection actually fun,First-person POV selfie of young woman with wavy hair,The camera pans over the app’s weekly mood chart and fun icons
+"""
 
-# File uploader
+with st.expander("📎 Click to download a sample CSV"):
+    st.download_button("Download Sample CSV", SAMPLE_CSV, file_name="sample_creative_template.csv")
+
+# ===== FILE UPLOAD LOGIC =====
 uploaded_file = st.file_uploader("Upload your CSV file with Hooks, Characters, and Demos", type=["csv"])
 
-# If no file uploaded, use default
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.info("✅ Loaded your uploaded file")
 else:
-    try:
-        df = pd.read_csv(default_path)
-        st.warning("⚠️ No file uploaded. Using default_creatives.csv")
-    except FileNotFoundError:
-        st.error("🚫 Default sample file not found. Please upload your own CSV.")
-        st.stop()
-    st.warning("⚠️ No file uploaded. Using default_creatives.csv")
+    df = pd.read_csv(io.StringIO(SAMPLE_CSV))
+    st.warning("⚠️ No file uploaded. Using built-in sample data.")
 
 columns = df.columns.tolist()
 hook_col = next((c for c in columns if "HOOK" in c.upper()), columns[0])
